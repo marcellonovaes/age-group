@@ -4,8 +4,7 @@ var contrs = [];		//Array to store the contributions:
 //{time_start, time_stop,image_url, image_class, user_id, contr_id}
 
 var goldenImgsIds = 	//Array with our golden images
-	["http://goo.gl/QsuqUq",
-	"http://goo.gl/VRAKdt"];
+	["http://www.biztechmagazine.com/sites/default/files/tiny-uploads/2012/grace-hopper-300.jpg","http://fotos.caras.uol.com.br/media/images/mobile/2014/01/08/img-576452-gisele-bundchen20140108181389214669.jpg"];
 var id;					//Stores the user fingerprinting;
 var counter = 0;		//Sets in which step the user is;
 var contrNumber = 5;	//HowMany contribution we want;
@@ -110,12 +109,13 @@ function sendContributions(cs){
 }
 //Sends teh contribution to the Database
 function storeContribution(c){
+
 	//Your Spreadsheet URL;
-	var url = "https://docs.google.com/forms/d/e/1FAIpQLSfoexmSLhvScIx4OEcZxXHx6VikDJjN5QApXMw6ZNqgEgaYVg";
+	var url = "https://docs.google.com/forms/d/e/1FAIpQLSdw6yy3boRit50JJIPdMW1LgT4iQ0vJDCj8ECBoypn7mX6aww";
 	//The form we send our infromation;
 	var action = 'formResponse';
 	//The field's id extraceted earlier:
-	var fields = ['entry.274168468','entry.1175968285','entry.405326048','entry.1284275155','entry.595916278'];
+	var fields = ['entry.1452035552','entry.898852186','entry.1795283051','entry.475732217','entry.1037125277'];
 	//We construct the URL to the database;
 	var str = url+'/'+action+'?' 	+
 		fields[0]+'='+c.time	+ '&' +
@@ -124,6 +124,8 @@ function storeContribution(c){
 		fields[3]+'='+c.user_id		+ '&' +
 		fields[4]+'='+c.contr_id;
 	//We send the form;
+	
+	
 	fetch(str,{mode: 'no-cors'});
 }
 //Loads the images from the picture server;
@@ -132,7 +134,7 @@ function loadRemoteImages(){
     var imgs = [];
     //Gets five images from facebook randomly (from a specific range)
     for(var i=0; i < 5; i++) {
-		rnd = Math.floor(Math.random() * 1000)%50 + 100000;
+		rnd = Math.floor(Math.random() * 1000)%50 + 1000;
         url = "http://graph.facebook.com/v2.5/" + rnd + "/picture?height=300&height=300";
 		imgs[i] = url;
     }
