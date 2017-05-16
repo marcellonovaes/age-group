@@ -1,0 +1,67 @@
+    if(done){
+        console.log("Sent new Videos");
+        socket.send(JSON.stringify( getNextPair() ));
+    }else{
+      console.log("Sent new chunks");
+      socket.send(JSON.stringify( getNextPair() ));
+    }
+    
+    
+    /////////    
+    
+    
+    
+    
+    
+      if(obj.act == "sync"){
+        //Incrementa a pontuação por ter contribuido;
+        addScore(obj.user_id,10);
+        
+        //verifica se é uma confirmação
+        if(obj.status == "confirm"){
+          
+          //+ 1 por ter encontrado algo;
+          addScore(obj.user_id,1);
+
+          if(obj.c == "true"){
+            //BINGO
+            addScore(obj.user_id,100);
+            dal.addContribution(dal.getAsset(obj.v1_url), dal.getAsset(obj.v2_url), obj.delta);
+            dal.print();
+          }else{
+            //Se não confirmar, remove;
+            confirm.splice(obj.id,1);
+          }
+        //Se não é confirmação, é new:
+        //Se não achou:
+        }else if(obj.c == "false"){
+          //Pega o proximo chunck do video"i"
+          videos[vi].chunk++;
+          //Se chegou no ultimo chunck, anda com o "j" e reinicializa o "i"
+          if(videos[vi].chunk > videos[vi].chuncks){
+            videos[vi].chunk = 1;
+            videos[vj].chunk++;
+          }
+          //Se video "j" chego uao ultimo chunck, não achou nada :(
+          if(videos[vj].chunk > videos[vj].chuncks){
+            //Envia 'I' no lugar do delta para dizer que é Impossivel achar um overlap entre os videos
+            dal.addContribution(dal.getAsset(videos[vi].url), dal.getAsset(videos[vj].url), 'I');
+            done = true;
+          }    
+        //Se achou, vai para a confirmação:
+        }else if(obj.c == "true"){
+          
+          //avisa que houve uma identificacao em um par de chunks, entao vai para o proximo par de videos    
+          //COMENTE para continuar recebendo controbuicoes para aquele par de videos
+          done = true;
+
+          //nextpair.push([videos[vi].chunk,videos[vj].chunk]);
+        }
+      }else if (obj.act == "getPresentation") {
+        socket.send( JSON.stringify(dal.getPresentation()) );
+      }
+      else if (obj.act == "getScore") {
+        var obj1 = {act:"score", data:scores[obj.user_id]};
+        var c = JSON.stringify(obj1);
+        socket.send(c);
+      }

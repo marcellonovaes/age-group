@@ -1,0 +1,29 @@
+-Tempo: 04:00 com intervalo de 15 min;
+-Conteœdo:
+	*CrowdSourcing
+		*Human Computation
+		*Triple C
+		*Crowdsourcing
+	*Multimedia powered by the crowd
+		*CrowdText
+			*cases
+		*CrowdImage
+			*cases
+		*CrowdAudio
+			*cases
+		*CrowdVideo
+			*Characteristics of the Crowd
+			*Cases
+	*Development
+		*Arquitetura
+		*Apresentação de cada componente da arquitetura
+		*Caracterização do case
+		*Interface do case
+		*HTML5
+		*Configuração do armazenamento
+		*Configuração do dropbox/alternativa
+		*A aplicação
+		*Analise de dados
+		*Upgrades 2 be done (servidor de controle ...)
+
+		
